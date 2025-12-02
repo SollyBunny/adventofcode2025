@@ -11,17 +11,38 @@ function parseInstructions(text) {
 
 const instructions = parseInstructions(await fs.readFile("input.txt", "utf-8"));
 
-let dial = 50;
-let zeroCount = 0;
+{
+	let dial = 50;
+	let zeroCount = 0;
 
-for (const instruction of instructions) {
-	dial += instruction;
-	while (dial >= 100)
-		dial -= 100;
-	while (dial < 0)
-		dial += 100
-	if (dial === 0)
-		zeroCount++;
+	for (const instruction of instructions) {
+		dial += instruction;
+		while (dial >= 100)
+			dial -= 100;
+		while (dial < 0)
+			dial += 100
+		if (dial === 0)
+			zeroCount++;
+	}
+
+	console.log("Part 1", zeroCount);
 }
 
-console.log(zeroCount);
+{
+	let dial = 50;
+	let zeroCount = 0;
+
+	for (const instruction of instructions) {
+		for (let i = 0; i < Math.abs(instruction); i++) {
+			dial += instruction > 0 ? 1 : -1;
+			if (dial >= 100)
+				dial -= 100;
+			if (dial < 0)
+				dial += 100
+			if (dial === 0)
+				zeroCount++;
+		}
+	}
+
+	console.log("Part 2", zeroCount);
+}
